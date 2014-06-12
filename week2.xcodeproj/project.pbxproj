@@ -19,6 +19,9 @@
 		775D512919496D95008B3108 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 775D511119496D95008B3108 /* UIKit.framework */; };
 		775D513119496D95008B3108 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 775D512F19496D95008B3108 /* InfoPlist.strings */; };
 		775D513319496D95008B3108 /* week2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D513219496D95008B3108 /* week2Tests.m */; };
+		775D513F19496F7E008B3108 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D513D19496F7E008B3108 /* LogInViewController.m */; };
+		775D514019496F7E008B3108 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775D513E19496F7E008B3108 /* LogInViewController.xib */; };
+		775D514619497A63008B3108 /* LogInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D514519497A63008B3108 /* LogInTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,11 @@
 		775D512E19496D95008B3108 /* week2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "week2Tests-Info.plist"; sourceTree = "<group>"; };
 		775D513019496D95008B3108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		775D513219496D95008B3108 /* week2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = week2Tests.m; sourceTree = "<group>"; };
+		775D513C19496F7E008B3108 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		775D513D19496F7E008B3108 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		775D513E19496F7E008B3108 /* LogInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInViewController.xib; sourceTree = "<group>"; };
+		775D514419497A63008B3108 /* LogInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInTableViewController.h; sourceTree = "<group>"; };
+		775D514519497A63008B3108 /* LogInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +119,11 @@
 				775D511D19496D95008B3108 /* AppDelegate.m */,
 				775D511F19496D95008B3108 /* Images.xcassets */,
 				775D511419496D95008B3108 /* Supporting Files */,
+				775D513C19496F7E008B3108 /* LogInViewController.h */,
+				775D513D19496F7E008B3108 /* LogInViewController.m */,
+				775D513E19496F7E008B3108 /* LogInViewController.xib */,
+				775D514419497A63008B3108 /* LogInTableViewController.h */,
+				775D514519497A63008B3108 /* LogInTableViewController.m */,
 			);
 			path = week2;
 			sourceTree = "<group>";
@@ -221,6 +234,7 @@
 			files = (
 				775D511819496D95008B3108 /* InfoPlist.strings in Resources */,
 				775D512019496D95008B3108 /* Images.xcassets in Resources */,
+				775D514019496F7E008B3108 /* LogInViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +254,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				775D511E19496D95008B3108 /* AppDelegate.m in Sources */,
+				775D514619497A63008B3108 /* LogInTableViewController.m in Sources */,
 				775D511A19496D95008B3108 /* main.m in Sources */,
+				775D513F19496F7E008B3108 /* LogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
