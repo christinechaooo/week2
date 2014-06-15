@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogInViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-{
-    UITextField * username;
-    UIButton * submit;
-}
+@interface LogInViewController : UIViewController
+
 @end

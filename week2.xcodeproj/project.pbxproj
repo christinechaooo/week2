@@ -21,7 +21,8 @@
 		775D513319496D95008B3108 /* week2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D513219496D95008B3108 /* week2Tests.m */; };
 		775D513F19496F7E008B3108 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D513D19496F7E008B3108 /* LogInViewController.m */; };
 		775D514019496F7E008B3108 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775D513E19496F7E008B3108 /* LogInViewController.xib */; };
-		775D514619497A63008B3108 /* LogInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775D514519497A63008B3108 /* LogInTableViewController.m */; };
+		77C3E574194D775D00AC4E62 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E572194D775D00AC4E62 /* FeedViewController.m */; };
+		77C3E575194D775D00AC4E62 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C3E573194D775D00AC4E62 /* FeedViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +55,9 @@
 		775D513C19496F7E008B3108 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		775D513D19496F7E008B3108 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		775D513E19496F7E008B3108 /* LogInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInViewController.xib; sourceTree = "<group>"; };
-		775D514419497A63008B3108 /* LogInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInTableViewController.h; sourceTree = "<group>"; };
-		775D514519497A63008B3108 /* LogInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTableViewController.m; sourceTree = "<group>"; };
+		77C3E571194D775D00AC4E62 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		77C3E572194D775D00AC4E62 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		77C3E573194D775D00AC4E62 /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +124,9 @@
 				775D513C19496F7E008B3108 /* LogInViewController.h */,
 				775D513D19496F7E008B3108 /* LogInViewController.m */,
 				775D513E19496F7E008B3108 /* LogInViewController.xib */,
-				775D514419497A63008B3108 /* LogInTableViewController.h */,
-				775D514519497A63008B3108 /* LogInTableViewController.m */,
+				77C3E571194D775D00AC4E62 /* FeedViewController.h */,
+				77C3E572194D775D00AC4E62 /* FeedViewController.m */,
+				77C3E573194D775D00AC4E62 /* FeedViewController.xib */,
 			);
 			path = week2;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			files = (
 				775D511819496D95008B3108 /* InfoPlist.strings in Resources */,
 				775D512019496D95008B3108 /* Images.xcassets in Resources */,
+				77C3E575194D775D00AC4E62 /* FeedViewController.xib in Resources */,
 				775D514019496F7E008B3108 /* LogInViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,8 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				775D511E19496D95008B3108 /* AppDelegate.m in Sources */,
-				775D514619497A63008B3108 /* LogInTableViewController.m in Sources */,
 				775D511A19496D95008B3108 /* main.m in Sources */,
+				77C3E574194D775D00AC4E62 /* FeedViewController.m in Sources */,
 				775D513F19496F7E008B3108 /* LogInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +457,7 @@
 				775D513819496D95008B3108 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		775D513919496D95008B3108 /* Build configuration list for PBXNativeTarget "week2Tests" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +466,7 @@
 				775D513B19496D95008B3108 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

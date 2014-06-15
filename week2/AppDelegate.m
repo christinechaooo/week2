@@ -16,6 +16,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     LogInViewController *vc = [[LogInViewController alloc] init];
+    
     self.window.rootViewController = vc;
     
     

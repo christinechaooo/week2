@@ -7,9 +7,25 @@
 //
 
 #import "LogInViewController.h"
+#import "FeedViewController.h"
 
 @interface LogInViewController ()
-@property (strong, nonatomic) UITableView *tableView;
+
+@property (nonatomic, retain) UIView *loginContainerVeiw;
+@property (nonatomic, retain) UIView *otherButtonsView;
+@property (nonatomic, retain) UITextField *emailTF;
+@property (nonatomic, retain) UITextField *passwordTF;
+@property (nonatomic, retain) UIButton *logInButton;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) UIAlertView *alertView;
+
+- (void)willShowKeyboard:(NSNotification *)notification;
+- (void)willHideKeyboard:(NSNotification *)notification;
+- (void)hideKeyboard;
+- (void)checkPassword;
+- (void)onLogIn:(id)sender;
+- (void)textFieldChanged:(UITextField *)textField;
+
 @end
 
 @implementation LogInViewController
@@ -18,14 +34,22 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowKeyboard:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willHideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
+
     }
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loginContainerVeiw = [[UIView alloc] init];
     
     UIColor *fbBlue = [UIColor colorWithRed:56.0/255.0 green:85.0/255.0 blue:144.0/255.0 alpha:1];
     self.view.backgroundColor = fbBlue;
@@ -36,24 +60,80 @@
     fbLogoView.image = fbLogo;
     
     //Add login textfields
-//    LogInTableViewController *logInTextFields = [[LogInTableViewController alloc] init];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(16, 217, 288, 88) style:UITableViewStylePlain];
-    self.tableView.layer.cornerRadius = 4;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-//    UIView *newView = [[UIView alloc]initWithFrame:CGRectMake(10, 70, 300, 45)];
-//    submit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [submit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    //[submit setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.56] forState:UIControlStateDisabled];
-//    [submit setTitle:@"Login" forState:UIControlStateNormal];
-//    [submit.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-//    [submit setFrame:CGRectMake(10.0, 15.0, 280.0, 44.0)];
-//    [newView addSubview:submit];
-//    
-//    [self.tableView setTableFooterView:newView];
+    UIView *logInTextFieldsBg = [[UIView alloc] initWithFrame:CGRectMake(16, 213, 288, 88)];
+    logInTextFieldsBg.backgroundColor = [UIColor whiteColor];
+    logInTextFieldsBg.layer.cornerRadius = 4;
+    logInTextFieldsBg.userInteractionEnabled = YES;
     
-    [self.view addSubview:fbLogoView];
-    [self.view addSubview:self.tableView];
+    self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(34, 213, 270, 44)];
+    self.emailTF.placeholder = @"Email or phone number";
+    self.emailTF.font = [UIFont systemFontOfSize:14];
+    self.emailTF.keyboardType = UIKeyboardTypeEmailAddress;
+    [self.emailTF addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(34, 257, 270, 44)];
+    self.passwordTF.placeholder = @"Password";
+    self.passwordTF.font = [UIFont systemFontOfSize:14];
+    self.passwordTF.secureTextEntry = YES;
+    [self.passwordTF addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.logInButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.logInButton.frame = CGRectMake(16, 309, 288, 44);
+    self.logInButton.titleLabel.font = [UIFont systemFontOfSize:18];
+    self.logInButton.layer.cornerRadius = 4;
+    self.logInButton.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
+    self.logInButton.enabled = NO;
+    [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
+    [self.logInButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.logInButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateDisabled];
+    [self.logInButton addTarget:self action:@selector(onLogIn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.indicatorView.center = CGPointMake(280, 331);
+    
+    self.alertView = [[UIAlertView alloc] initWithTitle:@"Incorrect Password" message:@"The password you entered is incorrect. Please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    
+    self.otherButtonsView = [[UIView alloc] initWithFrame:CGRectMake(0, 464, 320, 200)];
+    
+    UIButton *signUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    signUpButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [signUpButton setTitle:@"Sign Up For Facebook" forState:UIControlStateNormal];
+    [signUpButton sizeToFit];
+    [signUpButton setCenter:CGPointMake(160, 22)];
+    [signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [signUpButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
+    
+    UIButton *helpCenterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    helpCenterButton.frame = CGRectMake(16, 44, 288, 44);
+    helpCenterButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [helpCenterButton setTitle:@"Help Center" forState:UIControlStateNormal];
+    [helpCenterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [helpCenterButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:tapRecognizer];
+    
+    [self.view addSubview:self.loginContainerVeiw];
+    [self.view addSubview:self.otherButtonsView];
+    [self.view addSubview:self.emailTF];
+    [self.view addSubview:self.passwordTF];
+    [self.view addSubview:self.indicatorView];
+    
+    [self.loginContainerVeiw addSubview:logInTextFieldsBg];
+    [self.loginContainerVeiw addSubview:fbLogoView];
+    [self.view addSubview:self.logInButton];
+    
+    [self.otherButtonsView addSubview:signUpButton];
+    [self.otherButtonsView addSubview:helpCenterButton];
+    
+}
+
+- (void)textFieldChanged:(UITextField *)textField {
+    if (self.emailTF.text.length != 0 && self.passwordTF.text.length != 0) {
+        self.logInButton.enabled = YES;
+    } else {
+        self.logInButton.enabled = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,63 +142,59 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (void)willShowKeyboard:(NSNotification *)notification {
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.loginContainerVeiw.frame = CGRectMake(0, -70, self.loginContainerVeiw.frame.size.width, self.loginContainerVeiw.frame.size.height);
+                         self.otherButtonsView.frame = CGRectMake(0, 300, self.otherButtonsView.frame.size.width, self.otherButtonsView.frame.size.height);
+                         self.emailTF.frame = CGRectMake(34, 143, self.emailTF.frame.size.width, self.emailTF.frame.size.height);
+                         self.passwordTF.frame = CGRectMake(34, 187, self.passwordTF.frame.size.width, self.passwordTF.frame.size.height);
+                         self.logInButton.frame = CGRectMake(16, 239, self.logInButton.frame.size.width, self.logInButton.frame.size.height);
+                         self.indicatorView.frame = CGRectMake(270, 252, self.indicatorView.frame.size.width, self.indicatorView.frame.size.height);
+                     }
+                     completion:nil];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 2;
+- (void)hideKeyboard {
+    [self.view endEditing:YES];
 }
 
+- (void)onLogIn:(id)sender {
+    NSLog(@"log in");
+    [self.view endEditing:YES];
+    [self.logInButton setTitle:@"Logging In" forState:UIControlStateNormal];
+    [self.indicatorView startAnimating];
+    [self performSelector:@selector(checkPassword) withObject:self afterDelay:2.0 ];
+}
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        //self.tableView.contentOffset = CGPointMake( 10,  320);
-        [self.tableView setContentInset:UIEdgeInsetsMake(50,0,0,0)];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+- (void)checkPassword {
+    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
+        
+        
+        FeedViewController *vc = [[FeedViewController alloc] init];
+        vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        [self.alertView show];
+        [self.indicatorView stopAnimating];
     }
-    
-    if ([indexPath section] == 0) {
-        username = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
-        username.adjustsFontSizeToFitWidth = YES;
-        username.textColor = [UIColor blackColor];
-        if ([indexPath row] == 0) {
-            username.placeholder = @"example@gmail.com";
-            username.keyboardType = UIKeyboardTypeEmailAddress;
-            username.returnKeyType = UIReturnKeyNext;
-            cell.textLabel.text = @"Username";
-            username.clearButtonMode = YES;
-        }
-        else {
-            username.placeholder = @"minimum 6 characters";
-            username.keyboardType = UIKeyboardTypeDefault;
-            username.returnKeyType = UIReturnKeyDone;
-            username.secureTextEntry = YES;
-            cell.textLabel.text = @"Password";
-            username.clearButtonMode = UITextFieldViewModeAlways;
-        }
-        username.backgroundColor = [UIColor whiteColor];
-        username.autocorrectionType = UITextAutocorrectionTypeNo; // no auto correction support
-        username.autocapitalizationType = UITextAutocapitalizationTypeNone; // no auto capitalization support
-        username.textAlignment = NSTextAlignmentLeft;
-        username.tag = 0;
-        
-        
-        username.clearButtonMode = UITextFieldViewModeAlways; // no clear 'x' button to the right
-        [username setEnabled: YES];
-        
-        
-        [cell.contentView addSubview: username];
-        
-    }
-    
-    // Configure the cell...
-    
-    return cell;}
+}
+
+- (void)willHideKeyboard:(NSNotification *)notification {
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.loginContainerVeiw.frame = CGRectMake(0, 0, self.loginContainerVeiw.frame.size.width, self.loginContainerVeiw.frame.size.height);
+                         self.otherButtonsView.frame = CGRectMake(0, 464, self.otherButtonsView.frame.size.width, self.otherButtonsView.frame.size.height);
+                         self.emailTF.frame = CGRectMake(34, 213, self.emailTF.frame.size.width, self.emailTF.frame.size.height);
+                         self.passwordTF.frame = CGRectMake(34, 257, self.passwordTF.frame.size.width, self.passwordTF.frame.size.height);
+                         self.logInButton.frame = CGRectMake(16, 309, self.logInButton.frame.size.width, self.logInButton.frame.size.height);
+                         self.indicatorView.frame = CGRectMake(270, 322, self.indicatorView.frame.size.width, self.indicatorView.frame.size.height);
+                     }
+                     completion:nil];
+}
 
 @end
