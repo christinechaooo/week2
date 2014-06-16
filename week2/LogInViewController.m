@@ -169,11 +169,11 @@
     [self.view endEditing:YES];
     [self.logInButton setTitle:@"Logging In" forState:UIControlStateNormal];
     [self.indicatorView startAnimating];
-    [self performSelector:@selector(checkPassword) withObject:self afterDelay:2.0 ];
+    [self performSelector:@selector(checkPassword) withObject:self afterDelay:0.0 ];
 }
 
 - (void)checkPassword {
-    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
+//    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
         FeedViewController *vc = [[FeedViewController alloc] init];
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
         nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -185,11 +185,13 @@
         [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
         
         [self presentViewController:nvc animated:YES completion:nil];
-    } else {
-        [self.alertView show];
-        [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
-        [self.indicatorView stopAnimating];
-    }
+        
+        
+//    } else {
+//        [self.alertView show];
+//        [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
+//        [self.indicatorView stopAnimating];
+//    }
 }
 
 - (void)willHideKeyboard:(NSNotification *)notification {
