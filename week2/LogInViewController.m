@@ -18,6 +18,7 @@
 @property (nonatomic, retain) UIButton *logInButton;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) UIAlertView *alertView;
+@property (nonatomic, strong) UIColor *fbBlue;
 
 - (void)willShowKeyboard:(NSNotification *)notification;
 - (void)willHideKeyboard:(NSNotification *)notification;
@@ -51,8 +52,8 @@
     
     self.loginContainerVeiw = [[UIView alloc] init];
     
-    UIColor *fbBlue = [UIColor colorWithRed:56.0/255.0 green:85.0/255.0 blue:144.0/255.0 alpha:1];
-    self.view.backgroundColor = fbBlue;
+    self.fbBlue = [UIColor colorWithRed:56.0/255.0 green:85.0/255.0 blue:144.0/255.0 alpha:1];
+    self.view.backgroundColor = self.fbBlue;
     
     //Add FB logo
     UIImage *fbLogo = [UIImage  imageNamed:@"fb-logo"];
@@ -69,12 +70,14 @@
     self.emailTF.placeholder = @"Email or phone number";
     self.emailTF.font = [UIFont systemFontOfSize:14];
     self.emailTF.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.emailTF addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     
     self.passwordTF = [[UITextField alloc] initWithFrame:CGRectMake(34, 257, 270, 44)];
     self.passwordTF.placeholder = @"Password";
     self.passwordTF.font = [UIFont systemFontOfSize:14];
     self.passwordTF.secureTextEntry = YES;
+    self.passwordTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.passwordTF addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     
     self.logInButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -166,20 +169,26 @@
     [self.view endEditing:YES];
     [self.logInButton setTitle:@"Logging In" forState:UIControlStateNormal];
     [self.indicatorView startAnimating];
-    [self performSelector:@selector(checkPassword) withObject:self afterDelay:2.0 ];
+    [self performSelector:@selector(checkPassword) withObject:self afterDelay:0.0 ];
 }
 
 - (void)checkPassword {
-    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
-        
-        
+//    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
         FeedViewController *vc = [[FeedViewController alloc] init];
-        vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:vc animated:YES completion:nil];
-    } else {
-        [self.alertView show];
-        [self.indicatorView stopAnimating];
-    }
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+        nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        nvc.navigationBar.barTintColor = self.fbBlue;
+        nvc.navigationBar.tintColor = [UIColor whiteColor];
+        NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                   [UIColor whiteColor],NSForegroundColorAttributeName, nil];
+        
+        [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+        
+        [self presentViewController:nvc animated:YES completion:nil];
+//    } else {
+//        [self.alertView show];
+//        [self.indicatorView stopAnimating];
+//    }
 }
 
 - (void)willHideKeyboard:(NSNotification *)notification {

@@ -26,7 +26,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.title = @"News Feed";
+    self.view.backgroundColor = [UIColor colorWithRed:211.0/255.0 green:214.0/255.0 blue:219.0/255.0 alpha:1];
+    
+    UIImage *statusBar = [UIImage  imageNamed:@"status_bar"];
+    UIImageView *statusBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 45)];
+    statusBarView.image = statusBar;
+    
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicatorView.center = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height + self.navigationController.navigationBar.frame.size.height + statusBarView.frame.size.height) / 2);
+    [indicatorView startAnimating];
+    
+    [self.view addSubview:indicatorView];
+    
+    [self.view addSubview:statusBarView];
 }
 
 - (void)didReceiveMemoryWarning
