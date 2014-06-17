@@ -12,3 +12,6 @@ Took 11 hours to complete.
 	- After 2 seconds, show the feed, which is a long image in a scrollable view.
 - More
 	- Add a scrollable view of the "More" page. (optional)
+	- Add a UIRefreshControl for a pull to refresh (optional)
+	- After a pull to refresh, delay for 2 seconds before ending (optional)
+		- Every other time, display an error message (optional)

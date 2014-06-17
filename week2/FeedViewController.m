@@ -14,8 +14,13 @@
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) MoreViewController *moreView;
 @property (nonatomic, strong) UINavigationController *nvc;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIAlertView *alertView;
+@property (nonatomic, assign) BOOL refreshError;
 
 - (void)showFeed;
+- (void)handleRefresh:(id)sender;
+- (void)endRefreshing;
 
 @end
 
@@ -33,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setRefreshError:NO];
     self.navigationItem.title = @"News Feed";
         
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"searchIcon"] style:UIBarButtonItemStylePlain target:self action:nil];
@@ -46,6 +52,8 @@
     UIImage *statusBar = [UIImage  imageNamed:@"status_bar"];
     UIImageView *statusBarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 45)];
     statusBarView.image = statusBar;
+    
+    self.alertView = [[UIAlertView alloc] initWithTitle:@"Refresh Error" message:@"Blah Blah!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     
     self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.indicatorView.center = CGPointMake(self.view.frame.size.width / 2, (self.view.frame.size.height + self.navigationController.navigationBar.frame.size.height + statusBarView.frame.size.height) / 2);
@@ -70,6 +78,26 @@
     
     [feedScrollView addSubview:feedImgView];
     [self.view addSubview:feedScrollView];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    [feedScrollView addSubview:self.refreshControl];
+
+}
+
+- (void)handleRefresh:(id)sender {
+    [self performSelector:@selector(endRefreshing) withObject:self afterDelay:2.0 ];
+    
+}
+
+- (void)endRefreshing {
+    if(self.refreshError == YES) {
+        [self.alertView show];
+        [self setRefreshError:NO];
+    } else {
+        [self setRefreshError:YES];
+    }
+    [self.refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
