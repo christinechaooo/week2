@@ -23,6 +23,10 @@
 		775D514019496F7E008B3108 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775D513E19496F7E008B3108 /* LogInViewController.xib */; };
 		77C3E574194D775D00AC4E62 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E572194D775D00AC4E62 /* FeedViewController.m */; };
 		77C3E575194D775D00AC4E62 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C3E573194D775D00AC4E62 /* FeedViewController.xib */; };
+		77C3E578195000FF00AC4E62 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E577195000FF00AC4E62 /* MoreViewController.m */; };
+		77C3E57E195019A000AC4E62 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E57D195019A000AC4E62 /* RequestsViewController.m */; };
+		77C3E581195019AC00AC4E62 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E580195019AC00AC4E62 /* MessagesViewController.m */; };
+		77C3E584195019B700AC4E62 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C3E583195019B700AC4E62 /* NotificationsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,14 @@
 		77C3E571194D775D00AC4E62 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		77C3E572194D775D00AC4E62 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		77C3E573194D775D00AC4E62 /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
+		77C3E576195000FF00AC4E62 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		77C3E577195000FF00AC4E62 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		77C3E57C195019A000AC4E62 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
+		77C3E57D195019A000AC4E62 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
+		77C3E57F195019AC00AC4E62 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		77C3E580195019AC00AC4E62 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
+		77C3E582195019B700AC4E62 /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		77C3E583195019B700AC4E62 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +139,14 @@
 				77C3E571194D775D00AC4E62 /* FeedViewController.h */,
 				77C3E572194D775D00AC4E62 /* FeedViewController.m */,
 				77C3E573194D775D00AC4E62 /* FeedViewController.xib */,
+				77C3E576195000FF00AC4E62 /* MoreViewController.h */,
+				77C3E577195000FF00AC4E62 /* MoreViewController.m */,
+				77C3E57C195019A000AC4E62 /* RequestsViewController.h */,
+				77C3E57D195019A000AC4E62 /* RequestsViewController.m */,
+				77C3E57F195019AC00AC4E62 /* MessagesViewController.h */,
+				77C3E580195019AC00AC4E62 /* MessagesViewController.m */,
+				77C3E582195019B700AC4E62 /* NotificationsViewController.h */,
+				77C3E583195019B700AC4E62 /* NotificationsViewController.m */,
 			);
 			path = week2;
 			sourceTree = "<group>";
@@ -258,9 +278,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				775D511E19496D95008B3108 /* AppDelegate.m in Sources */,
+				77C3E584195019B700AC4E62 /* NotificationsViewController.m in Sources */,
 				775D511A19496D95008B3108 /* main.m in Sources */,
+				77C3E57E195019A000AC4E62 /* RequestsViewController.m in Sources */,
 				77C3E574194D775D00AC4E62 /* FeedViewController.m in Sources */,
 				775D513F19496F7E008B3108 /* LogInViewController.m in Sources */,
+				77C3E578195000FF00AC4E62 /* MoreViewController.m in Sources */,
+				77C3E581195019AC00AC4E62 /* MessagesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

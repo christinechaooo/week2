@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeedViewController : UIViewController<UITabBarDelegate>
+@interface FeedViewController : UIViewController
+
 
 @end

@@ -8,6 +8,10 @@
 
 #import "LogInViewController.h"
 #import "FeedViewController.h"
+#import "MoreViewController.h"
+#import "RequestsViewController.h"
+#import "MessagesViewController.h"
+#import "NotificationsViewController.h"
 
 @interface LogInViewController ()
 
@@ -42,10 +46,6 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -62,9 +62,11 @@
     
     //Add login textfields
     UIView *logInTextFieldsBg = [[UIView alloc] initWithFrame:CGRectMake(16, 213, 288, 88)];
-    logInTextFieldsBg.backgroundColor = [UIColor whiteColor];
-    logInTextFieldsBg.layer.cornerRadius = 4;
-    logInTextFieldsBg.userInteractionEnabled = YES;
+    
+    UIImage *logInBg = [UIImage  imageNamed:@"logInBg"];
+    UIImageView *logInBgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 288, 88)];
+    logInBgView.image = logInBg;
+    [logInTextFieldsBg addSubview:logInBgView];
     
     self.emailTF = [[UITextField alloc] initWithFrame:CGRectMake(34, 213, 270, 44)];
     self.emailTF.placeholder = @"Email or phone number";
@@ -169,29 +171,86 @@
     [self.view endEditing:YES];
     [self.logInButton setTitle:@"Logging In" forState:UIControlStateNormal];
     [self.indicatorView startAnimating];
-    [self performSelector:@selector(checkPassword) withObject:self afterDelay:0.0 ];
+    [self performSelector:@selector(checkPassword) withObject:self afterDelay:2.0 ];
 }
 
 - (void)checkPassword {
-//    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
-        FeedViewController *vc = [[FeedViewController alloc] init];
-        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-        nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        nvc.navigationBar.barTintColor = self.fbBlue;
-        nvc.navigationBar.tintColor = [UIColor whiteColor];
+    if([self.passwordTF.text isEqualToString:@"password"] == YES) {
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+        self.tabBarController = [[UITabBarController alloc] init];
+        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:71.0/255.0 green:124.0/255.0 blue:230.0/255.0 alpha:1]];
+    
+        FeedViewController *feedVC = [[FeedViewController alloc] init];
+        UINavigationController *feedNVC = [[UINavigationController alloc] initWithRootViewController:feedVC];
+        feedNVC.tabBarItem.title = @"News Feed";
+        feedNVC.tabBarItem.image = [UIImage imageNamed:@"newsfeed"];
+        feedNVC.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -6.0);
+        feedNVC.tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
+        feedNVC.navigationBar.barTintColor = self.fbBlue;
+        feedNVC.navigationBar.tintColor = [UIColor whiteColor];
+    
+        RequestsViewController *requestsVC = [[RequestsViewController alloc] init];
+        UINavigationController *requestsNVC = [[UINavigationController alloc] initWithRootViewController:requestsVC];
+        requestsNVC.tabBarItem.title = @"Requests";
+        requestsNVC.tabBarItem.image = [UIImage imageNamed:@"requests"];
+        requestsNVC.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -6.0);
+        requestsNVC.tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
+        requestsNVC.navigationBar.barTintColor = self.fbBlue;
+        requestsNVC.navigationBar.tintColor = [UIColor whiteColor];
+    
+        MessagesViewController *messagesVC = [[MessagesViewController alloc] init];
+        UINavigationController *messagesNVC = [[UINavigationController alloc] initWithRootViewController:messagesVC];
+        messagesNVC.tabBarItem.title = @"Messages";
+        messagesNVC.tabBarItem.image = [UIImage imageNamed:@"messages"];
+        messagesNVC.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -6.0);
+        messagesNVC.tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
+        messagesNVC.navigationBar.barTintColor = self.fbBlue;
+        messagesNVC.navigationBar.tintColor = [UIColor whiteColor];
+    
+        NotificationsViewController *notificationsVC = [[NotificationsViewController alloc] init];
+        UINavigationController *notificationsNVC = [[UINavigationController alloc] initWithRootViewController:notificationsVC];
+        notificationsNVC.tabBarItem.title = @"Notifications";
+        notificationsNVC.tabBarItem.image = [UIImage imageNamed:@"notifications"];
+        notificationsNVC.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -6.0);
+        notificationsNVC.tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
+        notificationsNVC.navigationBar.barTintColor = self.fbBlue;
+        notificationsNVC.navigationBar.tintColor = [UIColor whiteColor];
+    
+    
+        MoreViewController *moreVC = [[MoreViewController alloc] init];
+        UINavigationController *moreNVC = [[UINavigationController alloc] initWithRootViewController:moreVC];
+        moreNVC.tabBarItem.title = @"More";
+        moreNVC.tabBarItem.image = [UIImage imageNamed:@"more"];
+        moreNVC.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -6.0);
+        moreNVC.tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
+        moreNVC.navigationBar.barTintColor = self.fbBlue;
+        moreNVC.navigationBar.tintColor = [UIColor whiteColor];
+    
         NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                   [UIColor whiteColor],NSForegroundColorAttributeName, nil];
-        
+                                               [UIColor whiteColor],NSForegroundColorAttributeName, nil];
+    
         [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+    
+        NSArray *viewControllers = [[NSArray alloc] initWithObjects:
+                                  feedNVC,requestsNVC, messagesNVC, notificationsNVC, moreNVC, nil];
+    
+        [self.tabBarController setViewControllers:viewControllers];
+        self.window.rootViewController = self.tabBarController;
+        [self.window makeKeyAndVisible];
         
-        [self presentViewController:nvc animated:YES completion:nil];
+//        [UIView transitionFromView:self.window.rootViewController.view
+//                            toView:self.tabBarController.view
+//                          duration:0.5
+//                           options:UIViewAnimationOptionTransitionCrossDissolve
+//                        completion:^(BOOL finished){ self.window.rootViewController = self.tabBarController; }];
         
-        
-//    } else {
-//        [self.alertView show];
-//        [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
-//        [self.indicatorView stopAnimating];
-//    }
+    } else {
+        [self.alertView show];
+        [self.logInButton setTitle:@"Log In" forState:UIControlStateNormal];
+        [self.indicatorView stopAnimating];
+    }
+    
 }
 
 - (void)willHideKeyboard:(NSNotification *)notification {
